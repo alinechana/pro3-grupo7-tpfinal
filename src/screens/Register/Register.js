@@ -20,7 +20,7 @@ export class Register extends Component {
         auth.createUserWithEmailAndPassword(email, password)
          .then(response => {
             this.setState({registered: true});
-            
+              
         })
         .catch(error => {
             this.setState({error: "Usuario invalido"})
