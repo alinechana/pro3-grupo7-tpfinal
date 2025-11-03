@@ -14,6 +14,19 @@ export class Login extends Component {
         }
     }
 
+    componentDidMount(props){
+      auth.onAuthStateChanged( user => {
+        if (user && loggedIn === "true") {
+          this.props.navigation.navigate("Home")
+        } else {
+          console.log("No hay usuario logueado");
+          
+        }
+
+      })
+      
+    }
+
      login(email, password){
         console.log(`Email: ${this.state.email}, 
             Password: ${this.state.password} `);
