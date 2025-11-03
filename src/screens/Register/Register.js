@@ -1,110 +1,119 @@
-import { Text, View, TextInput } from 'react-native'
+import { Text, View, Pressable, TextInput, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import { Pressable } from 'react-native'
-import { StyleSheet } from 'react-native'
-import { db, auth } from '../../firebase/config';
+import {db, auth} from "../firebase/config"
 
 export class Register extends Component {
-    constructor(props){
+    constructor (props){
         super(props)
-        this.setState = {
-            email: "",
-            userName: "",
-            password: "", 
-            registered: false
+        this.state ={
+          email: "",
+          user: "",
+          password: "",
+          registered: false
         }
     }
 
-     onSubmit(email, password){
-        console.log(`Email: ${this.state.email} User: ${this.state.userName}`);
-        auth.createUserWithEmailAndPassword(email, password)
-         .then(response => {
+    register(email, user, password){
+      console.log(`Email: ${this.state.email}, User: ${this.state.user}, 
+        Password: ${this.state.password} `);
+
+        if (email.includes("@") && password.length >= 6) {
+
+          auth.createUserWithEmailAndPassword(email, password)
+          .then((response) => {
             this.setState({registered: true});
               
         })
         .catch(error => {
             this.setState({error: "Usuario invalido"})
 
-        })
-        
-    }
+            db.collection("users").add({
+              email: this.state.email,
+              user: this.state.user,
+              createdAt: Date.now(),
+            })
+
+            this.props.navigation.navigate("Login")
+          })
+          .catch(error => {
+          this.setState({error: 'Credenciales inválidas.'})
+          console.log(error);
+          
+        }) 
+    } else {
+      console.log("Cambiar email o contraseña");
+      
+    }}
+
+
 
   render() {
     return (
-    <View style={styles.container}>
-        <Pressable onPress={() => this.props.navigation.navigate("Login")}>
-            <Text> Ir a pantalla Login</Text>
+      <View style={styles.container}>
+        <Text>Register</Text>
+
+        <TextInput style={styles.field}
+          keyboardType='email-address'
+          placeholder='email'
+          onChangeText={text => this.setState({ email: text })}
+          value={this.state.email} />
+
+        <TextInput style={styles.field}
+          keyboardType='default'
+          placeholder='user name'
+          onChangeText={text => this.setState({ user: text })}
+          value={this.state.user} />
+
+        <TextInput style={styles.field}
+          keyboardType='default'
+          placeholder='password'
+          secureTextEntry={true}
+          onChangeText={text => this.setState({ password: text })}
+          value={this.state.password} />
+
+        <Pressable style={styles.button} onPress={() => this.register(this.state.email, this.state.user, this.state.password)}>
+          <Text> Register </Text>
         </Pressable> 
-             
-    
-        <TextInput style={styles.field}
-        keyboardType='email-address'
-        placeholder='email'
-        onChangeText={text => this.setState({email:text})}
-        value={this.state.email}> 
-        </TextInput>
 
-        <TextInput style={styles.field}
-        keyboardType='default' 
-        placeholder='userName' 
-        onChangeText={text => this.setState({userName:text})}
-        value={this.state.userName}> </TextInput>
-
-        <TextInput style={styles.field}
-        keyboardType='default' 
-        placeholder='password'
-        secureTextEntry={true}
-        onChangeText={text => this.setState({password:text})}
-        value={this.state.password}> </TextInput>
-
-        <Pressable style={styles.boton}
-        onPress={() => this.onSubmit()}> 
-            <Text style={styles.text}> Registrarse</Text>
+        <Pressable onPress ={() => this.props.navigation.navigate("Login")}>
+            <Text> Ir a Login </Text>
         </Pressable>
-
-    </View>
-        
-
-        
-     
+       
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal:10, 
-        marginTop: 20
-    }, 
+  container: {
+    paddingHorizontal: 10,
+    marginTop: 20
+  },
 
-    field: {
-        height: 20, 
-        paddingVertical: 15, 
-        paddingHorizontal:10, 
-        borderWidth: 1, 
-        borderColor:"#ccc", 
-        borderRadius: 6, 
-        marginVertical: 10
-    }, 
+  field:{
+    height: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor:"#ccc",
+    borderStyle: "solid",
+    borderRadius: 6,
+    marginVertical: 10
+  },
 
-    boton:{
-        backgroundColor: "#28a745", 
-        paddingHorizontal: 10, 
-        paddingVertical: 6, 
-        textAlign: center, 
-        borderRadius: 4, 
-        borderWidth: 1, 
-        borderStyle: solid, 
-        borderColor: "#28a745"
+  button:{
+    backgroundColor: "#28a745",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    textAlign: "center",
+    borderRadius: 4, 
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#28a745"
 
+  }
 
-    }, 
-
-    text: {
-        color:"#fff"
-
-    }
-
-})
+ 
+});
 
 export default Register

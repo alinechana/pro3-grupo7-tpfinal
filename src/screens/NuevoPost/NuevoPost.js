@@ -1,40 +1,96 @@
-import { Text, View } from 'react-native'
+import {Text, View, Pressable, TextInput, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
+import {db, auth} from "../firebase/config"
 
 export class NuevoPost extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.setState = {
-            texto: ""
+        this.state = {
+            email: "",
+            user: "",
+            mensaje: "",
+
         }
-
     }
 
-    onSubmit(){
+    postear(email, user, mensaje) {
+        console.log(`Email: ${this.state.email}, User: ${this.state.user}, 
+          Password: ${this.state.mensaje} `);
+
+
         db.collection("posts").add({
-            owner: auth.currentUser.email, 
-            texto: auth.currentUser.text, 
-            createdAt: Date.now(), 
+            email: this.state.email,
+            user: this.state.user,
+            mensaje: this.state.mensaje,
+            createdAt: Date.now(),
         })
-        .then()
-        .catch((error) => console.log(error) )
+
     }
-  render() {
 
-    return (
 
-      <View>
-        <TextInput 
-        keyboardType= "default"
-        placeholder= "texto"
-        onChangeText={text => this.setState({texto:text})}
-        value={this.state.text}
-         />
-        <Pressable onPress= {() => this.onSubmit() }> </Pressable>
-        
-      </View>
-    )
-  }
+
+    render() {
+        return (
+            <View>
+                <Text>NuevoPost</Text>
+
+                <TextInput style={styles.field}
+                    keyboardType='email-address'
+                    placeholder='email'
+                    onChangeText={text => this.setState({ email: text })}
+                    value={this.state.email} />
+
+                <TextInput style={styles.field}
+                    keyboardType='default'
+                    placeholder='user name'
+                    onChangeText={text => this.setState({ user: text })}
+                    value={this.state.user} />
+
+                <TextInput style={styles.field}
+                    keyboardType='default'
+                    placeholder='mensaje'
+                    onChangeText={text => this.setState({ mensaje: text })}
+                    value={this.state.mensaje} />
+
+                <Pressable style={styles.button} onPress={() => this.postear(this.state.email, this.state.user, this.state.mensaje)}>
+                    <Text> Postear </Text>
+                </Pressable>
+            </View>
+        )
+    }
 }
 
-export default NuevoPost;
+const styles = StyleSheet.create({
+    container: {
+      paddingHorizontal: 10,
+      marginTop: 20
+    },
+  
+    field:{
+      height: 20,
+      paddingVertical: 15,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor:"#ccc",
+      borderStyle: "solid",
+      borderRadius: 6,
+      marginVertical: 10
+    },
+  
+    button:{
+      backgroundColor: "#28a745",
+      paddingHorizontal: 10,
+      paddingVertical: 6,
+      textAlign: "center",
+      borderRadius: 4, 
+      borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "#28a745"
+  
+    }
+  
+   
+  });
+
+
+export default NuevoPost

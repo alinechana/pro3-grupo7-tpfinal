@@ -1,6 +1,5 @@
-import { Text, View, TextInput } from 'react-native'
+import { Text, View, Pressable, TextInput, StyleSheet} from 'react-native'
 import React, { Component } from 'react'
-import Pressable from 'react-native'; 
 import { StyleSheet } from 'react-native';
 import { auth } from '../../firebase/config';
 import { db, auth } from '../../firebase/config';
@@ -15,95 +14,94 @@ export class Login extends Component {
         }
     }
 
-     onSubmit(email, password){
-        console.log(`Email: ${this.state.email}`);
-        auth.signInWithEmailAndPassword(email, password)
-        .then(response => {
-            this.setState({loggedIn: true});
-        })
-        .catch(error => {
-            this.setState({error: "Credenciales incorrectas"})
-
-        })
+     login(email, password){
+        console.log(`Email: ${this.state.email}, 
+            Password: ${this.state.password} `);
+        
+            if (email.includes("@") && password.length >= 6) {
+        
+              auth.signInWithEmailAndPassword(email, password)
+              .then((response) => {
+                this.setState({loggedIn: true});
+                this.props.navigation.navigate("HomeMenu")
+              })
+              .catch(error => {
+              this.setState({error: 'Credenciales inválidas.'})
+            })
+              
+            } else{
+              console.log("El email o contraseña son incorrectos");
+              
+            }
+        
+          
 
     }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Pressable onPress={()=> this.props.navigation.navigate("Register")}> 
-            <Text> Ir a pantalla Register</Text>
-        </Pressable>
-
-        <Pressable onPress={()=> this.props.navigation.navigate("HomeMenu")}>
-            <Text> Entrar en la app</Text>
-            
-             </Pressable>
-
-
-        <TextInput style={styles.field}
-                keyboardType='email-address'
-                placeholder='email'
-                onChangeText={text => this.setState({email:text})}
-                value={this.state.email}> 
-                </TextInput>
-
-        <TextInput  style={styles.field}
-        keyboardType='default' 
-                placeholder='password'
-                secureTextEntry={true}
-                onChangeText={text => this.setState({password:text})}
-                value={this.state.password}> </TextInput>
-
-        <Pressable style={styles.boton}
-        onPress={() => this.onSubmit()}> 
-                    <Text style={styles.text}> Login</Text>
-                </Pressable>
-
-        
-        
-      </View>
-    )
-  }
-}
-
-
-const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal:10, 
-        marginTop: 20
-    }, 
-
-    field: {
-        height: 20, 
-        paddingVertical: 15, 
-        paddingHorizontal:10, 
-        borderWidth: 1, 
-        borderColor:"#ccc", 
-        borderRadius: 6, 
-        marginVertical: 10
-    }, 
-
-    boton: {
-        backgroundColor: "#28a745", 
-        paddingHorizontal: 10, 
-        paddingVertical: 6, 
-        textAlign: center, 
-        borderRadius: 4, 
-        borderWidth: 1, 
-        borderStyle: solid, 
-        borderColor: "#28a745"
-
-    }, 
-
-    text:{
-        color: "#fff"
-
-    }
-
+    render() {
+        return (
+      
+          <View style={styles.container}>
+            <Text>Login</Text>
     
-
-})
-
-
-export default Login
+            <TextInput style={styles.field}
+              keyboardType='email-address'
+              placeholder='email'
+              onChangeText={text => this.setState({ email: text })}
+              value={this.state.email} />
+    
+            <TextInput style={styles.field}
+              keyboardType='default'
+              placeholder='password'
+              secureTextEntry={true}
+              onChangeText={text => this.setState({ password: text })}
+              value={this.state.password} />
+    
+            <Pressable style={styles.button} onPress={() => this.login(this.state.email, this.state.password)}>
+              <Text> Login </Text>
+            </Pressable> 
+    
+            <Pressable onPress ={() => this.props.navigation.navigate("Register")}>
+                <Text> Ir al Register </Text>
+            </Pressable>
+            <Pressable onPress ={() => this.props.navigation.navigate("HomeMenu", {screen:"Login"} )}>
+                <Text>  Entrar en la app </Text>
+            </Pressable>
+          </View>
+        )
+      }
+    }
+    
+    const styles = StyleSheet.create({
+      container: {
+        paddingHorizontal: 10,
+        marginTop: 20
+      },
+    
+      field:{
+        height: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor:"#ccc",
+        borderStyle: "solid",
+        borderRadius: 6,
+        marginVertical: 10
+      },
+    
+      button:{
+        backgroundColor: "#28a745",
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: "center",
+        borderRadius: 4, 
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: "#28a745"
+    
+      }
+    
+     
+    });
+    
+    export default Login
