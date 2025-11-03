@@ -1,6 +1,6 @@
 import {Text, View, Pressable, TextInput, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import {db, auth} from "../firebase/config"
+import {db, auth} from "../../firebase/config"
 
 export class NuevoPost extends Component {
     constructor(props) {
@@ -33,18 +33,6 @@ export class NuevoPost extends Component {
         return (
             <View>
                 <Text>NuevoPost</Text>
-
-                <TextInput style={styles.field}
-                    keyboardType='email-address'
-                    placeholder='email'
-                    onChangeText={text => this.setState({ email: text })}
-                    value={this.state.email} />
-
-                <TextInput style={styles.field}
-                    keyboardType='default'
-                    placeholder='user name'
-                    onChangeText={text => this.setState({ user: text })}
-                    value={this.state.user} />
 
                 <TextInput style={styles.field}
                     keyboardType='default'

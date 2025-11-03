@@ -1,26 +1,22 @@
 import { Text, View, Pressable, TextInput, StyleSheet} from 'react-native'
 import React, { Component } from 'react'
-import { StyleSheet } from 'react-native';
-import { auth } from '../../firebase/config';
-import { db, auth } from '../../firebase/config';
+import { auth } from "../../firebase/config";
+
 
 export class Login extends Component {
     constructor(props){
         super(props)
-        this.setState ={
+        this.state ={
             email: "",
             password: "",
             loggedIn: false
         }
     }
 
-    componentDidMount(props){
+    componentDidMount(){
       auth.onAuthStateChanged( user => {
-        if (user && loggedIn === "true") {
-          this.props.navigation.navigate("Home")
-        } else {
-          console.log("No hay usuario logueado");
-          
+        if (user) {
+          this.props.navigation.navigate("HomeMenu");
         }
 
       })
@@ -40,6 +36,8 @@ export class Login extends Component {
               })
               .catch(error => {
               this.setState({error: 'Credenciales inválidas.'})
+              console.log(error);
+              
             })
               
             } else{

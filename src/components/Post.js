@@ -1,6 +1,5 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
-import { db } from "../firebase/config"
 
 export default function Post(props) {
     return (

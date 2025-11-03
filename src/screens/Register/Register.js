@@ -1,6 +1,6 @@
 import { Text, View, Pressable, TextInput, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import {db, auth} from "../firebase/config"
+import {db, auth} from "../../firebase/config"
 
 export class Register extends Component {
     constructor (props){
@@ -76,7 +76,7 @@ export class Register extends Component {
         </Pressable> 
 
         <Pressable onPress ={() => this.props.navigation.navigate("Login")}>
-            <Text> Ir a Login </Text>
+            <Text> Ya tengo cuenta </Text>
         </Pressable>
        
       </View>

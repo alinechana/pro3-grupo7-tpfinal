@@ -1,8 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from "../screens/Home";
-import Profile from "../screens/Profile";
-import Users from "../screens/Users";
-import NuevoPost from "../screens/NuevoPost";
+import Home from '../screens/Home/Home';
+import Profile from '../screens/Profile/Profile';
+import NuevoPost from '../screens/NuevoPost/NuevoPost';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { Component } from 'react';
 
@@ -24,13 +23,6 @@ export default class HomeMenu extends Component {
           component={Profile}
           options={{
             tabBarIcon: () => <AntDesign name="profile" size={24} color="black" />
-          }}
-        />
-        <Tab.Screen
-          name="Users"
-          component={Users}
-          options={{
-            tabBarIcon: () => <AntDesign name="team" size={24} color="black" />
           }}
         />
         <Tab.Screen
