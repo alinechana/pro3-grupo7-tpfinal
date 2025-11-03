@@ -23,6 +23,7 @@ export class NuevoPost extends Component {
             user: this.state.user,
             mensaje: this.state.mensaje,
             createdAt: Date.now(),
+            likes: []
         })
 
     }

@@ -40,6 +40,8 @@ export default class Home extends Component {
               email={item.data.email}
               user={item.data.user}
               mensaje={item.data.mensaje}
+              id = {item.data.id}
+              likes = {item.data.likes}
             />
           )}
         />
