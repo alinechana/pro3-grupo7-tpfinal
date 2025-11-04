@@ -31,7 +31,7 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Lista de posteos</Text>
+        <Text style={styles.title}>Todos los posteos</Text>
         <FlatList
           data={this.state.posts}
           keyExtractor={item => item.id}
@@ -40,7 +40,7 @@ export default class Home extends Component {
               email={item.data.email}
               user={item.data.user}
               mensaje={item.data.mensaje}
-              id = {item.data.id}
+              id = {item.id}
               likes = {item.data.likes}
             />
           )}
@@ -53,14 +53,14 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
-    padding: 10,
+    backgroundColor: '#eef2f5',
+    padding: 12,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '700',
-    color: '#222',
-    marginVertical: 10,
+    color: '#1e293b',
+    marginVertical: 12,
     textAlign: 'center',
   },
 });

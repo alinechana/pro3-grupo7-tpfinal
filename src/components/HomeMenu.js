@@ -4,6 +4,7 @@ import Profile from '../screens/Profile/Profile';
 import NuevoPost from '../screens/NuevoPost/NuevoPost';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { Component } from 'react';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,18 +19,19 @@ export default class HomeMenu extends Component {
             tabBarIcon: () => <AntDesign name="home" size={24} color="black" />
           }}
         />
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarIcon: () => <AntDesign name="profile" size={24} color="black" />
-          }}
-        />
+        
         <Tab.Screen
           name="NuevoPost"
           component={NuevoPost}
           options={{
-            tabBarIcon: () => <AntDesign name="pluscircleo" size={24} color="black" />
+            tabBarIcon: () => <MaterialCommunityIcons name="post" size={24} color="black" />
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            tabBarIcon: () => <MaterialCommunityIcons name="face-man" size={24} color="black" />
           }}
         />
       </Tab.Navigator>

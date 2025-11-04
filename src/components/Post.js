@@ -1,6 +1,7 @@
-import { Text, View, Pressable } from 'react-native'
+import { Text, View, Pressable, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import { auth } from '../firebase/config'
+import { auth, db } from '../firebase/config'
+import firebase from 'firebase'
 
 export class Post extends Component {
   constructor(props){
@@ -43,14 +44,80 @@ export class Post extends Component {
   render() {
 
     return (
-      <View >
-        <Text >Usuario: {props.user}</Text>
-        <Text>Email: {props.email}</Text>
-        <Text>Mensaje: {props.mensaje}</Text>
+      <View style={styles.card} >
+         <View style={styles.headerCard}>
+         <Text style={styles.user} >Usuario: {this.props.user}</Text>
+         <Text style={styles.email}> Email: {this.props.email}</Text>
+         </View>
+        
+        <Text style={styles.message}> Mensaje: {this.props.mensaje}</Text>
 
-        {this.state.like} ? <Pressable onPress= {() => this.like(props.id) }> <Text> Dar like  </Text></Pressable> : <Pressable onPress= {() => this.quitar(props.id)}> <Text> Quitar like  </Text></Pressable>
+        <View style={styles.footerCard}>
+        {this.state.like ? (
+          <Pressable style={styles.buttonLike} onPress={() => this.quitar(this.props.id)}>
+            <Text style={styles.buttonText}> Quitar like</Text>
+          </Pressable>
+        ) : (
+          <Pressable  style={styles.buttonLike} onPress={() => this.like(this.props.id)}>
+            <Text style={styles.buttonText}> Dar like</Text>
+          </Pressable>
+        )}
       
-      <Text> {this.props.likes.length} </Text>
+      <Text style={styles.likesCount}> {this.props.likes.length} </Text>
+      </View>
       </View>
     )
   } }
+
+  const styles = StyleSheet.create({
+    card: {
+      backgroundColor: '#fff',
+      borderRadius: 12,
+      padding: 16,
+      marginVertical: 8,
+      shadowColor: '#000',
+      shadowOpacity: 0.1,
+      shadowRadius: 6,
+      elevation: 3,
+    },
+    headerCard: {
+      marginBottom: 8,
+    },
+    user: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: '#1e293b',
+    },
+    email: {
+      fontSize: 13,
+      color: '#64748b',
+    },
+    message: {
+      fontSize: 15,
+      color: '#334155',
+      marginVertical: 8,
+    },
+    footerCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    
+    buttonLike: {
+      borderRadius: 8,
+      paddingVertical: 6,
+      paddingHorizontal: 12,
+      backgroundColor: '#EF5B9C',
+    },
+   
+    buttonText: {
+      color: '#fff',
+      fontWeight: '600',
+    },
+
+    likesCount: {
+      fontSize: 13,
+      color: '#475569',
+    },
+  });
+  export default Post

@@ -18,53 +18,48 @@ export class Register extends Component {
         Password: ${this.state.password} `);
 
         if (email.includes("@") && password.length >= 6) {
-
           auth.createUserWithEmailAndPassword(email, password)
-          .then((response) => {
-            this.setState({registered: true});
-              
-        })
-        .catch(error => {
-            this.setState({error: "Usuario invalido"})
-
-            db.collection("users").add({
-              email: this.state.email,
-              user: this.state.user,
-              createdAt: Date.now(),
+            .then((response) => {
+             
+              db.collection("users").add({
+                email: this.state.email,
+                user: this.state.user,
+                createdAt: Date.now(),
+              })
+            
+              this.props.navigation.navigate("Login");
             })
-
-            this.props.navigation.navigate("Login")
-          })
-          .catch(error => {
-          this.setState({error: 'Credenciales inválidas.'})
-          console.log(error);
-          
-        }) 
-    } else {
-      console.log("Cambiar email o contraseña");
-      
-    }}
+            .catch(error => {
+              this.setState({ error: "No se pudo registrar el usuario" });
+              console.log(error);
+            });
+        } else {
+          console.log("Cambiar email o contraseña");
+        }
+      }
 
 
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>Register</Text>
+         <Text style={styles.title}>Crear cuenta </Text>
+        <Text style={styles.subtitle}>Registrate para continuar</Text>
 
-        <TextInput style={styles.field}
+
+        <TextInput style={styles.input}
           keyboardType='email-address'
           placeholder='email'
           onChangeText={text => this.setState({ email: text })}
           value={this.state.email} />
 
-        <TextInput style={styles.field}
+        <TextInput style={styles.input}
           keyboardType='default'
           placeholder='user name'
           onChangeText={text => this.setState({ user: text })}
           value={this.state.user} />
 
-        <TextInput style={styles.field}
+        <TextInput style={styles.input}
           keyboardType='default'
           placeholder='password'
           secureTextEntry={true}
@@ -72,11 +67,11 @@ export class Register extends Component {
           value={this.state.password} />
 
         <Pressable style={styles.button} onPress={() => this.register(this.state.email, this.state.user, this.state.password)}>
-          <Text> Register </Text>
+          <Text  style={styles.buttonText}> Register </Text>
         </Pressable> 
 
         <Pressable onPress ={() => this.props.navigation.navigate("Login")}>
-            <Text> Ya tengo cuenta </Text>
+            <Text style={styles.link}> Ya tengo cuenta </Text>
         </Pressable>
        
       </View>
@@ -86,32 +81,62 @@ export class Register extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
-    marginTop: 20
+    flex: 1,
+    backgroundColor: '#f8fafc',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 24,
   },
-
-  field:{
-    height: 20,
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor:"#ccc",
-    borderStyle: "solid",
-    borderRadius: 6,
-    marginVertical: 10
+  title: {
+    fontSize: 26,
+    fontWeight: '700',
+    color: '#1e293b',
+    marginBottom: 6,
   },
-
-  button:{
-    backgroundColor: "#28a745",
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    textAlign: "center",
-    borderRadius: 4, 
+  subtitle: {
+    fontSize: 14,
+    color: '#64748b',
+    marginBottom: 20,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#fff',
     borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#28a745"
-
-  }
+    borderColor: '#cbd5e1',
+    borderRadius: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    fontSize: 16,
+    color: '#0f172a',
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  button: {
+    backgroundColor: '#468FEA',
+    borderRadius: 10,
+    paddingVertical: 14,
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 8,
+    marginBottom: 12,
+    shadowColor: '#22c55e',
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 17,
+    fontWeight: '600',
+  },
+  link: {
+    color: '#2563eb',
+    fontSize: 15,
+    marginTop: 8,
+  },
 
  
 });
