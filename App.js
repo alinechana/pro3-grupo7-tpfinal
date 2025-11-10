@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./src/screens/Login/Login"
 import Register from "./src/screens/Register/Register"
 import HomeMenu from "./src/components/HomeMenu"
-import Anidado from './src/components/Anidado';
+
 
 
 const Stack = createNativeStackNavigator()
@@ -17,7 +17,7 @@ export default function App() {
       <Stack.Screen name = "Register" component ={Register} options={ { headerShown: false }} />
       <Stack.Screen name = "Login" component ={Login} options={ { headerShown: false }} />
       <Stack.Screen name="HomeMenu" component={ HomeMenu } options={ { headerShown: false }}/>
-      <Stack.Screen name="Anidado" component={Anidado} options={ { headerShown: false }}> </Stack.Screen>
+      
       </Stack.Navigator>
     </NavigationContainer>
     

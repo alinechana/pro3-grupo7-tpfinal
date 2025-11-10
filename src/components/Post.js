@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { auth, db } from '../firebase/config'
 import firebase from 'firebase'
 import Comentar from '../screens/Comentar/Comentar'
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Feather from '@expo/vector-icons/Feather';
 
 export class Post extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ export class Post extends Component {
       .then(() => { this.setState({ like: true }) })
 
   }
+ 
 
   quitar(id) {
     db.collection("posts")
@@ -47,8 +50,8 @@ export class Post extends Component {
     return (
       <View style={styles.card} >
         <View style={styles.headerCard}>
-          <Text style={styles.user} >Usuario: {this.props.user}</Text>
-          <Text style={styles.email}> Email: {this.props.email}</Text>
+          
+          <Text style={styles.user}> Email: {this.props.email}</Text>
         </View>
 
         <Text style={styles.message}> Mensaje: {this.props.mensaje}</Text>
@@ -56,21 +59,23 @@ export class Post extends Component {
         <View style={styles.footerCard}>
           {this.state.like ? (
             <Pressable style={styles.buttonLike} onPress={() => this.quitar(this.props.id)}>
-              <Text style={styles.buttonText}> Quitar like</Text>
+              <Text style={styles.buttonText}> <FontAwesome name="heart" size={24} color="red" /> </Text>
             </Pressable>
           ) : (
             <Pressable style={styles.buttonLike} onPress={() => this.like(this.props.id)}>
-              <Text style={styles.buttonText}> Dar like</Text>
+              <Text style={styles.buttonText}> <Feather name="heart" size={24} color="red" /> </Text>
             </Pressable>
           )}
 
           <Text style={styles.likesCount}> {this.props.likes.length} </Text>
+          
         </View>
-
-          <Pressable style={styles.comentario} onPress={() => navigation.navigate('Comentar', { postId: this.props.id })}>
-              <Text> Comentar</Text>
+        <Pressable style={styles.comentar} onPress={() => this.props.navigation.navigate('Comentar', { postId: this.props.id })}>
+              <Text style={styles.comentar}> Comentar</Text>
 
               </Pressable>
+
+          
 
 
 
@@ -117,7 +122,7 @@ export class Post extends Component {
           borderRadius: 8,
         paddingVertical: 6,
         paddingHorizontal: 12,
-        backgroundColor: '#EF5B9C',
+        
   },
 
         buttonText: {
@@ -128,6 +133,10 @@ export class Post extends Component {
         likesCount: {
           fontSize: 13,
         color: '#475569',
+
+        buttonComentar:{
+          color: '#f8fafc'
+        }
   },
 });
         export default Post

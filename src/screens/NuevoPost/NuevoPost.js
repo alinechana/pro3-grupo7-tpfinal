@@ -20,10 +20,10 @@ export class NuevoPost extends Component {
 
         db.collection("posts").add({
             email: auth.currentUser.email,
-            user: auth.currentUser.user,
             mensaje: this.state.mensaje,
             createdAt: Date.now(),
-            likes: []
+            likes: [],
+            comments: [],
         })
         this.props.navigation.navigate("Home");
 
@@ -34,11 +34,11 @@ export class NuevoPost extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>NuevoPost</Text>
+                <Text style={styles.title}>Nuevo Post</Text>
 
                 <TextInput style={styles.input}
                     keyboardType='default'
-                    placeholder='mensaje'
+                    placeholder='Mensaje'
                     onChangeText={text => this.setState({ mensaje: text })}
                     value={this.state.mensaje} />
 

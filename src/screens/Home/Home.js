@@ -1,6 +1,6 @@
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
-import { db } from "../../firebase/config";
+import { db, auth } from "../../firebase/config";
 import Post from "../../components/Post";
 
 export default class Home extends Component {
@@ -9,6 +9,7 @@ export default class Home extends Component {
     this.state = {
       posts: [],
       loading: true,
+      comments: [],
     };
   }
 
@@ -21,10 +22,13 @@ export default class Home extends Component {
           data: doc.data(),
         });
       });
+      
       this.setState({
         posts,
         loading: false,
       });
+
+    
     });
   }
 
@@ -42,6 +46,7 @@ export default class Home extends Component {
               mensaje={item.data.mensaje}
               id = {item.id}
               likes = {item.data.likes}
+              navigation={this.props.navigation}
             />
           )}
         />

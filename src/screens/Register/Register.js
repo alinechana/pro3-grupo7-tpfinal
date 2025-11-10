@@ -49,19 +49,19 @@ export class Register extends Component {
 
         <TextInput style={styles.input}
           keyboardType='email-address'
-          placeholder='email'
+          placeholder='Email'
           onChangeText={text => this.setState({ email: text })}
           value={this.state.email} />
 
         <TextInput style={styles.input}
           keyboardType='default'
-          placeholder='user name'
+          placeholder='User name'
           onChangeText={text => this.setState({ user: text })}
           value={this.state.user} />
 
         <TextInput style={styles.input}
           keyboardType='default'
-          placeholder='password'
+          placeholder='Password'
           secureTextEntry={true}
           onChangeText={text => this.setState({ password: text })}
           value={this.state.password} />

@@ -49,13 +49,13 @@ export class Profile extends Component {
     return (
 
       <React.Fragment>
-      <View style={styles.container}>
+      <View style={styles.card}>
       <Text style={styles.title}> Mi perfil </Text>
 
       {this.state.usuario ? (
           <>
-            <Text style={styles.text}>Usuario: {this.state.usuario.data.user}</Text>
-            <Text style={styles.text}>Email: {this.state.usuario.data.email}</Text>
+            <Text style={styles.text}>Usuario: </Text> <Text style={styles.contenido} > {this.state.usuario.data.user} </Text>
+            <Text style={styles.text}>Email: </Text>   <Text style={styles.contenido}> {this.state.usuario.data.email}</Text>
           </>
         ) : (
           <Text>Cargando perfil...</Text>
@@ -77,8 +77,8 @@ export class Profile extends Component {
       />
     </View>
 
-        <Pressable onPress={()=> this.props.navigation.navigate("Login")}> 
-        <Text> Desloguearse</Text>
+        <Pressable style = {styles.button}onPress={()=> this.props.navigation.navigate("Login")}> 
+        <Text style = {styles.buttonText}> Cerrar sesión </Text>
 
         </Pressable>
 
@@ -89,17 +89,63 @@ export class Profile extends Component {
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    color: "black"
+  card: {
+    flex: 1,
+    backgroundColor: '#fefefe',
+    padding: 20,
+    borderRadius: 16,
+    margin: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 3,
   },
 
-  title:{
-    color: "black"
+  title: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#333',
+    textAlign: 'center',
+    marginVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e3e3e3',
+    paddingBottom: 6,
   },
 
-  text:{
-    color: "black"
-  }
+  text: {
+    fontSize: 16,
+    color: '#555',
+    fontWeight: '500',
+    marginTop: 8,
+  },
+
+  contenido: {
+    fontSize: 16,
+    color: '#111',
+    marginLeft: 4,
+    marginBottom: 8,
+  },
+
+  button: {
+    backgroundColor: '#468FEA',
+    paddingVertical: 12,
+    marginHorizontal: 50,
+    borderRadius: 30,
+    marginBottom: 30,
+    alignItems: 'center',
+    shadowColor:'#468FEA',
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 5,
+  },
+
+  buttonText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 16,
+  },
 });
 
 export default Profile
