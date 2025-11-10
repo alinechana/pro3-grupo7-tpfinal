@@ -67,67 +67,67 @@ export class Post extends Component {
           <Text style={styles.likesCount}> {this.props.likes.length} </Text>
         </View>
 
-        <Pressable style={styles.comentario} onPress={() => navigation.navigate('Comentar', { postId: item.id })}>
-          <Text> Comentar</Text>
+          <Pressable style={styles.comentario} onPress={() => navigation.navigate('Comentar', { postId: this.props.id })}>
+              <Text> Comentar</Text>
 
-        </Pressable>
+              </Pressable>
 
 
 
-      </View>
-    )
-  }
+            </View>
+          )
+          }
 }
 
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginVertical: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
+        const styles = StyleSheet.create({
+          card: {
+          backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 16,
+        marginVertical: 8,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 3,
   },
-  headerCard: {
-    marginBottom: 8,
+        headerCard: {
+          marginBottom: 8,
   },
-  user: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#1e293b',
+        user: {
+          fontSize: 16,
+        fontWeight: '700',
+        color: '#1e293b',
   },
-  email: {
-    fontSize: 13,
-    color: '#64748b',
+        email: {
+          fontSize: 13,
+        color: '#64748b',
   },
-  message: {
-    fontSize: 15,
-    color: '#334155',
-    marginVertical: 8,
+        message: {
+          fontSize: 15,
+        color: '#334155',
+        marginVertical: 8,
   },
-  footerCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  buttonLike: {
-    borderRadius: 8,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    backgroundColor: '#EF5B9C',
+        footerCard: {
+          flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
   },
 
-  buttonText: {
-    color: '#fff',
-    fontWeight: '600',
+        buttonLike: {
+          borderRadius: 8,
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        backgroundColor: '#EF5B9C',
   },
 
-  likesCount: {
-    fontSize: 13,
-    color: '#475569',
+        buttonText: {
+          color: '#fff',
+        fontWeight: '600',
+  },
+
+        likesCount: {
+          fontSize: 13,
+        color: '#475569',
   },
 });
-export default Post
+        export default Post
